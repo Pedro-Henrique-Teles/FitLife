@@ -1,4 +1,4 @@
-package org.example.fitlife;
+package com.FitLife;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
