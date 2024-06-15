@@ -12,7 +12,7 @@ public class Exercicios {
     @Id
     private Long id;
     private String nome;
-    private String intencidade;
+    private String intensidade;
     private Duration duracao;
     private Date data;
     private Long idAluno; //Aluno que fez o exercicio
@@ -33,12 +33,12 @@ public class Exercicios {
         this.nome = nome;
     }
 
-    public String getIntencidade() {
-        return intencidade;
+    public String getIntensidade() {
+        return intensidade;
     }
 
-    public void setIntencidade(String intencidade) {
-        this.intencidade = intencidade;
+    public void setIntensidade(String intensidade) {
+        this.intensidade = intensidade;
     }
 
     public Duration getDuracao() {
