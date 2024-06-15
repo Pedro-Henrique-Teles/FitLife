@@ -10,18 +10,18 @@ import java.util.Date;
 public class Exercicios {
 
     @Id
-    private Long id;
+    private String id;
     private String nome;
     private String intensidade;
     private Duration duracao;
     private Date data;
     private Long idAluno; //Aluno que fez o exercicio
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

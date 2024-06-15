@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface ExerciciosRepository extends MongoRepository<Exercicios, Long> {
-    List<Exercicios> findByIdAluno (Long idAluno);
+public interface ExerciciosRepository extends MongoRepository<Exercicios, String> {
+    List<Exercicios> findByIdAluno (String idAluno);
     List<Exercicios> findByData (Date data);
     List<Exercicios> findByIntensidadeAndDuracaoGreaterThan (String intensidade, Duration duracao);
     List<Exercicios> findByIntensidade (String intensidade);

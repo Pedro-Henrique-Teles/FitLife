@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AlunoRepository extends MongoRepository<Aluno, Long> {
+public interface AlunoRepository extends MongoRepository<Aluno, String> {
     Aluno findByNome (String nome);
-    Optional<Aluno> findById (Long id);
+    Optional<Aluno> findById (String id);
     List<Aluno> findBySexo (String sexo);
     List<Aluno> findByIdadeGreaterThan (int idade);
 

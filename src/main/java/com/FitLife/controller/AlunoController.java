@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/alunos")
+    @RequestMapping("/api/alunos")
 public class AlunoController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class AlunoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aluno> getAlunoById(@PathVariable Long id) {
+    public ResponseEntity<Aluno> getAlunoById(@PathVariable String id) {
         return alunoRepository.findById(id)
                 .map(aluno -> ResponseEntity.ok().body(aluno))
                 .orElse(ResponseEntity.notFound().build());
@@ -34,7 +34,7 @@ public class AlunoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aluno> updateAluno(@PathVariable Long id, @RequestBody Aluno alunoUpdate) {
+    public ResponseEntity<Aluno> updateAluno(@PathVariable String id, @RequestBody Aluno alunoUpdate) {
         return alunoRepository.findById(id)
                 .map(aluno -> {
                     aluno.setNome(alunoUpdate.getNome());
@@ -46,11 +46,12 @@ public class AlunoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAluno(@PathVariable Long id) {
+    public ResponseEntity<?> deleteAluno(@PathVariable String id) {
         return alunoRepository.findById(id)
                 .map(aluno -> {
                     alunoRepository.deleteById(id);
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }
+
 }
