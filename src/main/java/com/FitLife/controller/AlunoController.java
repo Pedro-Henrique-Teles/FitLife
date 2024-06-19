@@ -18,7 +18,8 @@ public class AlunoController {
     private static final int OPCAO_ADICIONAR_ALUNOS = 1;
     private static final int OPCAO_REMOVER_ALUNOS = 2;
     private static final int OPCAO_ATUALIZAR_ALUNOS = 3;
-    private static final int OPCAO_VOLTAR = 4;
+    private static final int OPCAO_LISTAR_ALUNOS = 4;
+    private static final int OPCAO_VOLTAR = 5;
 
     public void menuAlunos(Scanner le) {
         int opcao;
@@ -29,7 +30,8 @@ public class AlunoController {
             System.out.println("┃ 1) Adicionar Aluno      ┃");
             System.out.println("┃ 2) Remover Aluno        ┃");
             System.out.println("┃ 3) Atualizar Aluno      ┃");
-            System.out.println("┃ 4) Voltar               ┃");
+            System.out.println("┃ 4) Listar Alunos        ┃");
+            System.out.println("┃ 5) Voltar               ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.print("Escolha uma opção: ");
             System.out.println();
@@ -51,12 +53,15 @@ public class AlunoController {
                 case OPCAO_ATUALIZAR_ALUNOS:
                     atualizarAluno(le);
                     break;
+                case OPCAO_LISTAR_ALUNOS:
+                    atualizarAluno(le);
+                    break;
                 case OPCAO_VOLTAR:
                     return; // Volta para o menu principal
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (opcao != 4);
+        } while (opcao != 5);
     }
 
     private void cadastrarAlunos(Scanner le) {
@@ -85,7 +90,9 @@ public class AlunoController {
     }
 
     private void atualizarAluno(Scanner le) {
-        // Implementar Atualizar Aluno
+        alunoService.atualizarAluno(le);
+
     }
+
 
 }

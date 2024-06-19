@@ -64,4 +64,47 @@ public class AlunoService {
     }
 
 
+
+    public void atualizarAluno(Scanner le) {
+        exibirAlunos(); // Lista os Alunos
+        System.out.println();
+        System.out.print("Digite o número do aluno que deseja atualizar: ");
+        int numeroAluno = le.nextInt();
+
+        List<Aluno> alunos = alunoRepository.findAll();
+        if (numeroAluno < 1 || numeroAluno > alunos.size()) {
+            System.out.println("Número inválido.");
+            return;
+        }
+
+        Aluno alunoParaAtualizar = alunos.get(numeroAluno - 1);
+
+        System.out.println("Digite o novo nome do aluno ou pressione enter para manter o mesmo:");
+        le.nextLine();
+        String nome = le.nextLine();
+        if (!nome.isEmpty()) {
+            alunoParaAtualizar.setNome(nome);
+        }
+
+        System.out.println("Digite o novo sexo do aluno (F ou M) ou pressione enter para manter o mesmo:");
+        String sexo = le.nextLine();
+        if (!sexo.isEmpty() && (sexo.equals("F") || sexo.equals("M"))) {
+            alunoParaAtualizar.setSexo(sexo);
+
+        }
+
+        System.out.println("Digite a nova idade do aluno ou digite '0' para manter a mesma:");
+        int idade = le.nextInt();
+        if (idade > 0) {
+            alunoParaAtualizar.setIdade(idade);
+        }
+
+        // Salva as alterações
+        alunoRepository.save(alunoParaAtualizar);
+
+        System.out.println("Aluno atualizado com sucesso!");
+    }
+
+
+
 }
