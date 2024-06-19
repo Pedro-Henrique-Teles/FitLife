@@ -4,9 +4,12 @@ import com.FitLife.models.Aluno;
 import com.FitLife.models.Exercicios;
 import com.FitLife.models.repository.AlunoRepository;
 import com.FitLife.models.repository.ExerciciosRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -23,25 +26,58 @@ public class ExercicioService {
     @Autowired
     private AlunoRepository alunoRepository;
 
-    public Exercicios criarExercicio(String nome, String intensidade, Duration duracao, Date data, String idAluno) {
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("O nome do exercício não pode ser vazio.");
-        }
-        if (!intensidade.matches("baixa|media|alta")) {
-            throw new IllegalArgumentException("Intensidade inválida. Use 'baixa', 'media' ou 'alta'.");
-        }
-        if (duracao.isNegative() || duracao.toMinutes() > 240) { // Exemplo: duração máxima de 4 horas
-            throw new IllegalArgumentException("Duração inválida.");
-        }
-        if (data == null) {
-            throw new IllegalArgumentException("Data inválida.");
-        }
-        if (!alunoRepository.existsById(idAluno)) {
-            throw new IllegalArgumentException("ID do aluno não encontrado.");
+
+    @SneakyThrows
+    public Exercicios criarExercicio(Scanner le) {
+        System.out.println("Digite o nome do exercício:");
+        String nome = le.nextLine();
+        if (nome.trim().isEmpty()) {
+            System.out.println("Nome do exercício não pode ser vazio.");
+            return null;
         }
 
-        //BUSCA O ALUNO PELO ID E ASSIM OBTEM O NOME
-        Aluno aluno = alunoRepository.findById(idAluno).orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado."));
+        System.out.println("Digite a intensidade do exercício (baixa, media, alta):");
+        String intensidade = le.nextLine();
+        if (!intensidade.matches("baixa|media|alta")) {
+            System.out.println("Intensidade inválida. Use 'baixa', 'media' ou 'alta'.");
+            return null;
+        }
+
+        System.out.println("Digite a duração do exercício em minutos:");
+        while (!le.hasNextLong()) {
+            System.out.println("Por favor, insira um número válido para a duração.");
+            le.next(); // Limpa a entrada incorreta
+        }
+        long duracaoMinutos = le.nextLong();
+        Duration duracao = Duration.ofMinutes(duracaoMinutos);
+
+        System.out.println("Digite a data do exercício (formato DD/MM/AAAA):");
+        String dataStr = le.next();
+        Date data;
+        try {
+            data = new SimpleDateFormat("dd/MM/yyyy").parse(dataStr);
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido. Por favor, insira a data no formato dd/MM/yyyy.");
+            return null;
+        }
+
+        // Listar alunos
+        List<Aluno> alunos = alunoRepository.findAll();
+        for (int i = 0; i < alunos.size(); i++) {
+            Aluno aluno = alunos.get(i);
+            System.out.println((i + 1) + ") ID: " + aluno.getId() + " - Nome: " + aluno.getNome());
+        }
+        System.out.println("Digite o número do aluno:");
+        while (!le.hasNextInt()) {
+            System.out.println("Por favor, insira um número válido para o aluno.");
+            le.next(); // Limpa a entrada incorreta
+        }
+        int numeroAluno = le.nextInt();
+        if (numeroAluno < 1 || numeroAluno > alunos.size()) {
+            System.out.println("Número de aluno inválido.");
+            return null;
+        }
+        String idAluno = alunos.get(numeroAluno - 1).getId();
 
         Exercicios exercicio = new Exercicios();
         exercicio.setNome(nome);
@@ -49,11 +85,18 @@ public class ExercicioService {
         exercicio.setDuracao(duracao);
         exercicio.setData(data);
         exercicio.setIdAluno(idAluno);
-        exercicio.setNomeAluno(aluno.getNome());
+        exercicio.setNomeAluno(alunos.get(numeroAluno - 1).getNome());
 
-        return exerciciosRepository.save(exercicio);
+        exerciciosRepository.save(exercicio);
+        System.out.println("Exercício registrado com sucesso!");
 
+        return exercicio;
     }
+
+
+
+
+
 
     public void exibirExercicios() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -71,6 +114,65 @@ public class ExercicioService {
         }
 
     }
+
+    @SneakyThrows
+    public void atualizarExercicio(Scanner le) {
+        exibirExercicios(); // Lista os Exercícios
+        System.out.println();
+        System.out.print("Digite o número do exercício que deseja atualizar: ");
+        int numeroExercicio = le.nextInt();
+
+        List<Exercicios> exercicios = exerciciosRepository.findAll();
+        if (numeroExercicio < 1 || numeroExercicio > exercicios.size()) {
+            System.out.println("Número inválido.");
+            return;
+        }
+
+        Exercicios exercicioParaAtualizar = exercicios.get(numeroExercicio - 1);
+
+        System.out.println("Digite o novo nome do exercício ou pressione enter para manter o mesmo:");
+        le.nextLine();
+        String nome = le.nextLine();
+        if (!nome.isEmpty()) {
+            exercicioParaAtualizar.setNome(nome);
+        }
+
+        System.out.println("Digite a nova intensidade do exercício (baixa, media, alta) ou pressione enter para manter o mesmo:");
+        String intensidade = le.nextLine();
+        if (!intensidade.isEmpty() && intensidade.matches("baixa|media|alta")) {
+            exercicioParaAtualizar.setIntensidade(intensidade);
+        }
+
+        System.out.println("Digite a nova duração do exercício em minutos ou digite '0' para manter a mesma:");
+        long duracaoMinutos = le.nextLong();
+        if (duracaoMinutos > 0) {
+            exercicioParaAtualizar.setDuracao(Duration.ofMinutes(duracaoMinutos));
+        }
+
+        System.out.println("Digite a nova data do exercício no formato dd/MM/yyyy ou pressione enter para manter a mesma:");
+        le.nextLine();
+        String dataStr = le.nextLine();
+        if (!dataStr.isEmpty()) {
+            Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dataStr);
+            exercicioParaAtualizar.setData(data);
+        }
+
+        System.out.println("Digite o novo ID do aluno ou pressione enter para manter o mesmo:");
+        String idAluno = le.nextLine();
+        if (!idAluno.isEmpty() && alunoRepository.existsById(idAluno)) {
+            Aluno aluno = alunoRepository.findById(idAluno).orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado."));
+            exercicioParaAtualizar.setIdAluno(idAluno);
+            exercicioParaAtualizar.setNomeAluno(aluno.getNome());
+        }
+
+        // Salva as alterações
+        exerciciosRepository.save(exercicioParaAtualizar);
+
+        System.out.println("Exercício atualizado com sucesso!");
+    }
+
+
+
 
     public void removerExercicio(Scanner le) {
         exibirExercicios();
