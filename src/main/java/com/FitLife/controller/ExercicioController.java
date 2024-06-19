@@ -1,17 +1,9 @@
 package com.FitLife.controller;
 
-import com.FitLife.models.Aluno;
 import com.FitLife.models.Exercicios;
 import com.FitLife.services.ExercicioService;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
-
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 @Controller

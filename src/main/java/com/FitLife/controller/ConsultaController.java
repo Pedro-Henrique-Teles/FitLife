@@ -1,11 +1,13 @@
 package com.FitLife.controller;
 
+import com.FitLife.services.ConsultaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.Scanner;
 
 @Controller
-public class ConsultasController {
+public class ConsultaController {
     private static final int BUSCAR_EX_POR_ALUNO = 1;
     private static final int BUSCAR_EX_POR_DATA = 2;
     private static final int BUSCAR_EX_POR_INTENSIDADE= 3;
@@ -27,6 +29,13 @@ public class ConsultasController {
     private static final int MEDIA_EXERCICIOS_POR_DIA = 19;
     private static final int CONTAGEM_ALUNOS_COM_TODAS_INTENSIDADES = 20;
     private static final int VOLTAR = 21;
+
+    private final ConsultaService consultaService;
+
+    @Autowired
+    public ConsultaController(ConsultaService consultaService){
+        this.consultaService = consultaService;
+    }
 
 
     public void menuConsultas(Scanner le) {
@@ -72,9 +81,10 @@ public class ConsultasController {
 
             switch (opcao) {
                 case BUSCAR_EX_POR_ALUNO:
+                    buscarExPorAluno(le);
                     System.out.println("Você escolheu 'Buscar todos os exercícios realizados por um determinado aluno'");
-
                     break;
+
                 case BUSCAR_EX_POR_DATA:
                     System.out.println("Você escolheu 'Buscar todos os exercícios realizados em uma data específica'");
 
@@ -100,6 +110,10 @@ public class ConsultasController {
             }
         } while (opcao != VOLTAR);
     }
+    private void buscarExPorAluno (Scanner le){
+        consultaService.buscarExerciciosPorAluno(le);
+    }
+
 
 
 

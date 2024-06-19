@@ -11,15 +11,18 @@ public class ConsoleController implements CommandLineRunner {
 
     private static final int OPCAO_CADASTRO_ALUNOS = 1;
     private static final int OPCAO_REGISTRO_EXERCICIOS = 2;
+    private static final int OPCAO_CONSULTAS = 3;
     private static final int OPCAO_SAIR = 6;
 
     private final AlunoController alunoController;
     private final ExercicioController exercicioController;
+    private final ConsultaController consultaController;
 
     @Autowired
-    public ConsoleController(AlunoController alunoController, ExercicioController exercicioController) {
+    public ConsoleController(AlunoController alunoController, ExercicioController exercicioController, ConsultaController consultaController) {
         this.alunoController = alunoController;
         this.exercicioController = exercicioController;
+        this.consultaController = consultaController;
     }
 
     @Override
@@ -33,9 +36,15 @@ public class ConsoleController implements CommandLineRunner {
                 case OPCAO_CADASTRO_ALUNOS:
                     alunoController.menuAlunos(le);
                     break;
+
                 case OPCAO_REGISTRO_EXERCICIOS:
                     exercicioController.menuExercicio(le);
                     break;
+
+                case OPCAO_CONSULTAS:
+                    consultaController.menuConsultas(le);
+                    break;
+
                 case OPCAO_SAIR:
                     System.out.println("Saindo do sistema...");
                     break;
