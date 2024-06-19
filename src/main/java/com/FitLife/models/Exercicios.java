@@ -21,7 +21,7 @@ public class Exercicios {
     private Date data;
     @DocumentReference
     private Aluno aluno;
-    private Long idAluno; //Aluno que fez o exercicio
+    private String idAluno; //Aluno que fez o exercicio
 
     public String getId() {
         return id;
@@ -63,11 +63,11 @@ public class Exercicios {
         this.data = data;
     }
 
-    public Long getIdAluno() {
+    public String getIdAluno() {
         return idAluno;
     }
 
-    public void setIdAluno(Long idAluno) {
+    public void setIdAluno(String idAluno) {
         this.idAluno = idAluno;
     }
 }
