@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ExercicioService {
@@ -51,4 +54,20 @@ public class ExercicioService {
 
     }
 
+    public void exibirExercicios() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<Exercicios> exercicios = exerciciosRepository.findAll();
+        for (int i = 0; i < exercicios.size(); i++) {
+            Exercicios exercicio = exercicios.get(i);
+            String dataFormatada = exercicio.getData() != null ? formatter.format(exercicio.getData().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) : "N/A";
+            System.out.println((i + 1) + ") ID: " + exercicio.getId() +
+                    " - Nome: " + exercicio.getNome() +
+                    " - Intensidade: " + exercicio.getIntensidade() +
+                    " - Duração: " + exercicio.getDuracao().toMinutes() +
+                    " - Data: " + dataFormatada +
+                    " - ID do Aluno: " + exercicio.getIdAluno());
+            System.out.println();
+        }
+
+    }
 }
