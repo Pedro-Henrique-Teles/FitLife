@@ -12,6 +12,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 @Service
 public class ExercicioService {
@@ -60,14 +61,31 @@ public class ExercicioService {
         for (int i = 0; i < exercicios.size(); i++) {
             Exercicios exercicio = exercicios.get(i);
             String dataFormatada = exercicio.getData() != null ? formatter.format(exercicio.getData().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) : "N/A";
-            System.out.println((i + 1) + ") ID: " + exercicio.getId() +
-                    " - Nome: " + exercicio.getNome() +
-                    " - Intensidade: " + exercicio.getIntensidade() +
-                    " - Duração: " + exercicio.getDuracao().toMinutes() +
-                    " - Data: " + dataFormatada +
-                    " - ID do Aluno: " + exercicio.getIdAluno());
+            System.out.println((i + 1) + ") ID Exercício: " + exercicio.getId() +
+                    "\n Nome: " + exercicio.getNome() +
+                    "\n Intensidade: " + exercicio.getIntensidade() +
+                    "\n Duração: " + exercicio.getDuracao().toMinutes() +
+                    "\n Data: " + dataFormatada +
+                    "\n ID Aluno: " + exercicio.getIdAluno());
             System.out.println();
         }
 
+    }
+
+    public void removerExercicio(Scanner le) {
+        exibirExercicios();
+        System.out.println();
+        System.out.print("Digite o número do exercício que deseja remover: ");
+        int numeroExercicio = le.nextInt();
+
+        List<Exercicios> exercicios = exerciciosRepository.findAll();
+        if (numeroExercicio < 1 || numeroExercicio > exercicios.size()) {
+            System.out.println("Número inválido.");
+            return;
+        }
+
+        Exercicios exercicioParaRemover = exercicios.get(numeroExercicio - 1);
+        exerciciosRepository.deleteById(exercicioParaRemover.getId());
+        System.out.println("Exercício removido com sucesso.");
     }
 }

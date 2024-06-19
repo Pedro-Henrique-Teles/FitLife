@@ -40,6 +40,7 @@ public class ExercicioController {
             System.out.println("┃ 4) Listar Exercício     ┃");
             System.out.println("┃ 5) Voltar               ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            System.out.println();
             System.out.print("Escolha uma opção: ");
             while (!le.hasNextInt()) {
                 System.out.println("Por favor, insira um número válido.");
@@ -53,7 +54,7 @@ public class ExercicioController {
                     registrarExercicios(le);
                     break;
                 case OPCAO_REMOVER_EXERCICIO:
-                    removerExercicio(le);
+                    removerExercicio(le, exercicioService);
                     break;
                 case OPCAO_ATUALIZAR_EXERCICIO:
                     atualizarExercicio(le);
@@ -99,8 +100,8 @@ public class ExercicioController {
         }
     }
 
-    private void removerExercicio(Scanner le) {
-
+    private void removerExercicio(Scanner le, ExercicioService exercicioService) {
+        exercicioService.removerExercicio(le);
     }
 
     private void atualizarExercicio(Scanner le) {
@@ -108,6 +109,6 @@ public class ExercicioController {
     }
 
     private void listarExercicio(Scanner le) {
-
+        exercicioService.exibirExercicios();
     }
 }
