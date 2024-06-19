@@ -23,10 +23,11 @@ public class Exercicios {
     private Aluno aluno;
     private String idAluno; //Aluno que fez o exercicio
 
+    private String nomeAluno;
+
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -61,6 +62,14 @@ public class Exercicios {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public String getNomeAluno() {
+        return nomeAluno;
+    }
+
+    public void setNomeAluno(String nomeAluno) {
+        this.nomeAluno = nomeAluno;
     }
 
     public String getIdAluno() {

@@ -1,5 +1,6 @@
 package com.FitLife.services;
 
+import com.FitLife.models.Aluno;
 import com.FitLife.models.Exercicios;
 import com.FitLife.models.repository.AlunoRepository;
 import com.FitLife.models.repository.ExerciciosRepository;
@@ -35,12 +36,16 @@ public class ExerciciosService {
             throw new IllegalArgumentException("ID do aluno não encontrado.");
         }
 
+        //BUSCA O ALUNO PELO ID E ASSIM OBTEM O NOME
+        Aluno aluno = alunoRepository.findById(idAluno).orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado."));
+
         Exercicios exercicio = new Exercicios();
         exercicio.setNome(nome);
         exercicio.setIntensidade(intensidade);
         exercicio.setDuracao(duracao);
         exercicio.setData(data);
         exercicio.setIdAluno(idAluno);
+        exercicio.setNomeAluno(aluno.getNome());
 
         return exerciciosRepository.save(exercicio);
     }
