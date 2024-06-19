@@ -15,6 +15,11 @@ public class AlunoController {
     @Autowired
     AlunoService alunoService;
 
+    private static final int OPCAO_ADICIONAR_ALUNOS = 1;
+    private static final int OPCAO_REMOVER_ALUNOS = 2;
+    private static final int OPCAO_ATUALIZAR_ALUNOS = 3;
+    private static final int OPCAO_VOLTAR = 4;
+
     public void menuAlunos(Scanner le) {
         int opcao;
         do {
@@ -35,16 +40,16 @@ public class AlunoController {
             opcao = le.nextInt();
 
             switch (opcao) {
-                case 1:
+                case OPCAO_ADICIONAR_ALUNOS:
                     cadastrarAlunos(le);
                     break;
-                case 2:
+                case OPCAO_REMOVER_ALUNOS:
                     removerAluno(le);
                     break;
-                case 3:
+                case OPCAO_ATUALIZAR_ALUNOS:
                     atualizarAluno(le);
                     break;
-                case 4:
+                case OPCAO_VOLTAR:
                     return; // Volta para o menu principal
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
