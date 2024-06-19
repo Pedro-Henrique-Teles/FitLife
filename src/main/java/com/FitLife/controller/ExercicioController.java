@@ -25,9 +25,10 @@ public class ExercicioController {
     private static final int OPCAO_ADICIONAR_EXERCICIO = 1;
     private static final int OPCAO_REMOVER_EXERCICIO = 2;
     private static final int OPCAO_ATUALIZAR_EXERCICIO = 3;
-    private static final int OPCAO_VOLTAR = 4;
+    private static final int OPCAO_LISTAR_EXERCICIO = 4;
+    private static final int OPCAO_VOLTAR = 5;
 
-    public void menuAlunos(Scanner le) {
+    public void menuExercicio(Scanner le) {
         int opcao;
         do {
             System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━┓");
@@ -36,7 +37,8 @@ public class ExercicioController {
             System.out.println("┃ 1) Adicionar Exercício  ┃");
             System.out.println("┃ 2) Remover Exercício    ┃");
             System.out.println("┃ 3) Atualizar Exercício  ┃");
-            System.out.println("┃ 4) Voltar               ┃");
+            System.out.println("┃ 4) Listar Exercício     ┃");
+            System.out.println("┃ 5) Voltar               ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.print("Escolha uma opção: ");
             while (!le.hasNextInt()) {
@@ -56,12 +58,15 @@ public class ExercicioController {
                 case OPCAO_ATUALIZAR_EXERCICIO:
                     atualizarExercicio(le);
                     break;
+                case OPCAO_LISTAR_EXERCICIO:
+                    listarExercicio(le);
+                    break;
                 case OPCAO_VOLTAR:
                     return; // Volta para o menu principal
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (opcao != 4);
+        } while (opcao != 5);
     }
 
 
@@ -99,6 +104,10 @@ public class ExercicioController {
     }
 
     private void atualizarExercicio(Scanner le) {
+
+    }
+
+    private void listarExercicio(Scanner le) {
 
     }
 }

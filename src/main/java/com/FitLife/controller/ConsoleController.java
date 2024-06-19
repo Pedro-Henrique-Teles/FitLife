@@ -34,7 +34,7 @@ public class ConsoleController implements CommandLineRunner {
                     alunoController.menuAlunos(le);
                     break;
                 case OPCAO_REGISTRO_EXERCICIOS:
-                    exercicioController.registrarExercicios(le);
+                    exercicioController.menuExercicio(le);
                     break;
                 case OPCAO_SAIR:
                     System.out.println("Saindo do sistema...");
