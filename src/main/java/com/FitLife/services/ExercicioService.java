@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.Date;
 
 @Service
-public class ExerciciosService {
+public class ExercicioService {
 
     @Autowired
     private ExerciciosRepository exerciciosRepository;
