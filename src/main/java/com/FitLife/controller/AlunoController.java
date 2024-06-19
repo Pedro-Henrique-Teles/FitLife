@@ -32,9 +32,11 @@ public class AlunoController {
             System.out.println("┃ 4) Voltar               ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.print("Escolha uma opção: ");
+            System.out.println();
             while (!le.hasNextInt()) {
                 System.out.println("Por favor, insira um número válido.");
                 le.next(); // Limpa a entrada incorreta
+                System.out.println();
                 System.out.print("Escolha uma opção: ");
             }
             opcao = le.nextInt();
@@ -44,7 +46,7 @@ public class AlunoController {
                     cadastrarAlunos(le);
                     break;
                 case OPCAO_REMOVER_ALUNOS:
-                    removerAluno(le);
+                    removerAluno(le, alunoService);
                     break;
                 case OPCAO_ATUALIZAR_ALUNOS:
                     atualizarAluno(le);
@@ -58,17 +60,19 @@ public class AlunoController {
     }
 
     private void cadastrarAlunos(Scanner le) {
+        System.out.println();
         System.out.println("Digite o nome do aluno:");
         String nome = le.next();
 
         System.out.println("Digite o sexo do aluno (F ou M):");
         String sexo = le.next();
 
-        System.out.println("Digite a idade do aluno:");
+        System.out.println("Digite a idade do aluno(a):");
         int idade = le.nextInt();
 
         try {
             Aluno aluno = alunoService.cadastrarAluno(nome, sexo, idade);
+            System.out.println();
             System.out.println("Aluno cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
@@ -76,8 +80,8 @@ public class AlunoController {
 
     }
 
-    private void removerAluno(Scanner le) {
-        // Implementar Remover Aluno
+    private void removerAluno(Scanner le, AlunoService alunoService) {
+        alunoService.removerAluno(le);
     }
 
     private void atualizarAluno(Scanner le) {

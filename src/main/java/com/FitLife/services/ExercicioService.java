@@ -48,5 +48,7 @@ public class ExercicioService {
         exercicio.setNomeAluno(aluno.getNome());
 
         return exerciciosRepository.save(exercicio);
+
     }
+
 }
