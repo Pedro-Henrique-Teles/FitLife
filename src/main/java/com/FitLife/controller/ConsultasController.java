@@ -1,7 +1,8 @@
 package com.FitLife.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.util.Scanner;
 
 @Controller
 public class ConsultasController {
@@ -25,6 +26,80 @@ public class ConsultasController {
     private static final int EXERCICIO_MAIS_LONGO_POR_ALUNO = 18;
     private static final int MEDIA_EXERCICIOS_POR_DIA = 19;
     private static final int CONTAGEM_ALUNOS_COM_TODAS_INTENSIDADES = 20;
+    private static final int VOLTAR = 21;
+
+
+    public void menuConsultas(Scanner le) {
+        int opcao;
+        do {
+            System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+            System.out.println("┃              MENU DE CONSULTAS                 ┃");
+            System.out.println("┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫");
+            System.out.println("┃ 1) Buscar exercícios por aluno                 ┃");
+            System.out.println("┃ 2) Buscar exercícios por data                  ┃");
+            System.out.println("┃ 3) Buscar exercícios por intensidade           ┃");
+            System.out.println("┃ 4) Obter média de duração dos exercícios       ┃");
+            System.out.println("┃ 5) Exibir aluno com maior tempo de exercícios  ┃");
+            System.out.println("┃ 6) Listar alunos que realizaram exercícios     ┃");
+            System.out.println("┃    em um intervalo de datas                    ┃");
+            System.out.println("┃ 7) Buscar exercícios realizados por sexo       ┃");
+            System.out.println("┃ 8) Contar número total de exercícios por aluno ┃");
+            System.out.println("┃ 9) Obter média de duração por intensidade      ┃");
+            System.out.println("┃ 10) Listar exercícios por alunos > 30 anos     ┃");
+            System.out.println("┃ 11) Buscar exercícios após data de inscrição   ┃");
+            System.out.println("┃ 12) Listar exercícios por inicial do nome      ┃");
+            System.out.println("┃ 13) Contar exercícios na última semana         ┃");
+            System.out.println("┃ 14) Exibir exercício mais comum                ┃");
+            System.out.println("┃ 15) Listar alunos que realizaram todas as      ┃");
+            System.out.println("┃     intensidades                               ┃");
+            System.out.println("┃ 16) Distribuição de intensidade dos exercícios ┃");
+            System.out.println("┃ 17) Duração total de exercícios por aluno      ┃");
+            System.out.println("┃ 18) Exercício mais longo por aluno             ┃");
+            System.out.println("┃ 19) Média de exercícios por dia                ┃");
+            System.out.println("┃ 20) Contagem de alunos com todas intensidades  ┃");
+            System.out.println("┃ 21) Voltar                                     ┃");
+            System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            System.out.print("Escolha uma opção: ");
+            System.out.println();
+
+            while (!le.hasNextInt()) {
+                System.out.println("Por favor, insira um número válido.");
+                le.next(); // Limpa a entrada incorreta
+                System.out.print("Escolha uma opção: ");
+            }
+            opcao = le.nextInt();
+            le.nextLine(); // Consome o '\n' restante
+
+            switch (opcao) {
+                case BUSCAR_EX_POR_ALUNO:
+                    System.out.println("Você escolheu 'Buscar todos os exercícios realizados por um determinado aluno'");
+
+                    break;
+                case BUSCAR_EX_POR_DATA:
+                    System.out.println("Você escolheu 'Buscar todos os exercícios realizados em uma data específica'");
+
+                    break;
+                case BUSCAR_EX_POR_INTENSIDADE:
+                    System.out.println("Você escolheu 'Buscar todos os exercícios de intensidade 'intenso' e duração maior que 10 minutos'");
+
+                    break;
+                case OBTER_MEDIA_TODOS_ALUNOS:
+                    System.out.println("Você escolheu 'Obter a média de duração dos exercícios realizados por todos os alunos'");
+
+                    break;
+                case EXIBIR_ALUNO_MAIOR_TMP_EX:
+                    System.out.println("Você escolheu 'Exibir o aluno com o maior tempo de exercícios realizados'");
+
+                    break;
+
+                case VOLTAR:
+                    System.out.println("Você escolheu 'Voltar'");
+                    return; // Volta para o menu principal
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (opcao != VOLTAR);
+    }
 
 
 
