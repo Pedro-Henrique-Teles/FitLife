@@ -81,8 +81,9 @@ public class ConsultaController {
 
             switch (opcao) {
                 case BUSCAR_EX_POR_ALUNO:
-                    buscarExPorAluno(le);
                     System.out.println("Você escolheu 'Buscar todos os exercícios realizados por um determinado aluno'");
+                    buscarExPorAluno(le);
+                    System.out.println();
                     break;
 
                 case BUSCAR_EX_POR_DATA:

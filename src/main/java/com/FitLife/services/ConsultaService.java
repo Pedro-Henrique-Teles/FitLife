@@ -57,11 +57,13 @@ public class ConsultaService {
         //Exibe os Exercicios
         System.out.println("Exercícios realizados pelo aluno " + alunos.get(index).getNome() + ":");
         System.out.println();
-        Thread.sleep(2000);
         for (Exercicios exercicio : exercicios) {
-            System.out.println(exercicio);
+            System.out.println(exercicio.getNome());
         }
+        Thread.sleep(4000);
     }
+
+
 
 
 

@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 
@@ -22,6 +23,16 @@ public class Exercicios {
     @DocumentReference
     private Aluno aluno;
     private String idAluno; //Aluno que fez o exercicio
+
+    @Override
+    public String toString() {
+        return "Exercício: " + this.nome +
+                ", Intensidade: " + this.intensidade +
+                ", Duração: " + this.duracao.toMinutes() + " minutos" +
+                ", Data: " + new SimpleDateFormat("dd/MM/yyyy").format(this.data) +
+                ", Aluno: " + this.nomeAluno;
+    }
+
 
     private String nomeAluno;
 
