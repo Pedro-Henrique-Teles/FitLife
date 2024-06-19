@@ -1,6 +1,7 @@
 package com.FitLife.models.repository;
 
 import com.FitLife.models.Aluno;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

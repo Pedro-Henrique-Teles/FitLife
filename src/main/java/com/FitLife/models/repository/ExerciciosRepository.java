@@ -17,4 +17,5 @@ public interface ExerciciosRepository extends MongoRepository<Exercicios, String
     List<Exercicios> findByDataBetween (Date dataInicio, Date dataFim);
     List<Exercicios> findByDataAfter (Date data);
 
+
 }
