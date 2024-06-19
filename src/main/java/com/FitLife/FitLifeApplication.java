@@ -3,6 +3,7 @@ package com.FitLife;
 import com.FitLife.models.Aluno;
 import com.FitLife.models.repository.AlunoRepository;
 import com.FitLife.models.repository.ExerciciosRepository;
+import com.FitLife.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,9 @@ public class FitLifeApplication implements CommandLineRunner {
 
     @Autowired
     ExerciciosRepository exerciciosRepository;
+
+    @Autowired
+    AlunoService alunoService;
 
     @Override
     public void run (String... args) throws Exception {
@@ -56,45 +60,33 @@ public class FitLifeApplication implements CommandLineRunner {
         System.out.println("┃ 6) Sair                   ┃");
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
         System.out.print("Escolha Sua Opção:: ");
-        int choice = le.nextInt();
-        return choice;
+        while (!le.hasNextInt()){
+            System.out.println("Por Favor, Insira Um Número");
+            le.next(); //Limpa a Entrada incorreta
+            System.out.println("Escolha Sua Opção:: ");
+        }
+        int escolha = le.nextInt();
+        return escolha;
     }
 
     private void cadastrarAlunos(Scanner le) {
-        String nome;
-        do {
-            System.out.println("Digite o nome do aluno (mais de 3 letras):");
-            nome = le.next();
-        } while (nome == null || nome.length() <= 3);
+        System.out.println("Digite o nome do aluno:");
+        String nome = le.next();
 
-        String sexo;
-        do {
-            System.out.println("Digite o sexo do aluno (F ou M):");
-            sexo = le.next().toUpperCase();
-        } while (!sexo.equals("F") && !sexo.equals("M"));
+        System.out.println("Digite o sexo do aluno (F ou M):");
+        String sexo = le.next();
 
-        int idade;
-        do {
-            System.out.println("Digite a idade do aluno (maior que 10 anos):");
-            while (!le.hasNextInt()) {
-                System.out.println("Por favor, insira um número válido para a idade.");
-                le.next(); // Limpa a entrada incorreta
-            }
-            idade = le.nextInt();
-        } while (idade <= 10);
+        System.out.println("Digite a idade do aluno:");
+        int idade = le.nextInt();
 
-
-        Aluno novoAluno = new Aluno();
-        novoAluno.setNome(nome);
-        novoAluno.setSexo(sexo);
-        novoAluno.setIdade(idade);
-        //Propriedades do Aluno
-
-        // Salva o aluno no banco de dados
-        alunoRepository.save(novoAluno);
-
-        System.out.println("Aluno cadastrado com sucesso!");
+        try {
+            Aluno aluno = alunoService.cadastrarAluno(nome, sexo, idade);
+            System.out.println("Aluno cadastrado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
+        }
     }
+
 
 
 }
