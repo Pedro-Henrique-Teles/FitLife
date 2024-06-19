@@ -1,7 +1,9 @@
 package com.FitLife.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Duration;
 import java.util.Date;
@@ -14,6 +16,7 @@ public class Exercicios {
     private String nome;
     private String intensidade;
     private Duration duracao;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date data;
     private Long idAluno; //Aluno que fez o exercicio
 

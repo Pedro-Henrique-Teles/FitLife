@@ -1,9 +1,8 @@
 package com.FitLife.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.lang.annotation.Inherited;
 import java.util.Date;
 
 @Document(collection = "alunos")
@@ -14,6 +13,7 @@ public class Aluno {
     private String nome;
     private String sexo;
     private int idade;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date dataInscricao;
 
     public String getId() {
