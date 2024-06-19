@@ -95,10 +95,10 @@ public class ExercicioController {
     }
 
     private void removerExercicio(Scanner le) {
-        // Implementar Remover Aluno
+
     }
 
     private void atualizarExercicio(Scanner le) {
-        // Implementar Atualizar Aluno
+
     }
 }

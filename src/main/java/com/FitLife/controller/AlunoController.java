@@ -5,6 +5,8 @@ import com.FitLife.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -54,7 +56,7 @@ public class AlunoController {
                     atualizarAluno(le);
                     break;
                 case OPCAO_LISTAR_ALUNOS:
-                    atualizarAluno(le);
+                    listarAlunos(le);
                     break;
                 case OPCAO_VOLTAR:
                     return; // Volta para o menu principal
@@ -75,15 +77,19 @@ public class AlunoController {
         System.out.println("Digite a idade do aluno(a):");
         int idade = le.nextInt();
 
-        try {
-            Aluno aluno = alunoService.cadastrarAluno(nome, sexo, idade);
-            System.out.println();
-            System.out.println("Aluno cadastrado com sucesso!");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
-        }
+        System.out.println("Digite a data de inscrição do aluno (dd-MM-yyyy):");
+        String dataInscricaoStr = le.next();
 
+        // Chama o método de cadastro do serviço e passa os dados coletados
+        Aluno novoAluno = alunoService.cadastrarAluno(nome, sexo, idade, dataInscricaoStr);
+
+        if(novoAluno != null){
+            System.out.println("Aluno cadastrado com sucesso!");
+        }else {
+            System.out.println("Não foi possível cadastrar o aluno. Verifique os dados e tente novamente.");
+        }
     }
+
 
     private void removerAluno(Scanner le, AlunoService alunoService) {
         alunoService.removerAluno(le);
@@ -92,6 +98,9 @@ public class AlunoController {
     private void atualizarAluno(Scanner le) {
         alunoService.atualizarAluno(le);
 
+    }
+    private void listarAlunos(Scanner le) {
+        alunoService.exibirAlunos();
     }
 
 

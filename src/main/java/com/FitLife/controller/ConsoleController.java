@@ -47,7 +47,7 @@ public class ConsoleController implements CommandLineRunner {
 
     private static int exibeMenu(Scanner le) {
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-        System.out.println("┃     FYTLIFE APP MENU      ┃");
+        System.out.println("┃     FITLYFE APP MENU      ┃");
         System.out.println("┣━━━━━━━━━━━━━━━━━━━━━━━━━━━┫");
         System.out.println("┃ 1) Cadastro De Alunos     ┃");
         System.out.println("┃ 2) Registro De Exercícios ┃");
