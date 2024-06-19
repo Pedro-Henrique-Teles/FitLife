@@ -1,6 +1,7 @@
 package com.FitLife.controller;
 
 import com.FitLife.services.ConsultaService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -38,6 +39,7 @@ public class ConsultaController {
     }
 
 
+    @SneakyThrows
     public void menuConsultas(Scanner le) {
         int opcao;
         do {
@@ -82,13 +84,15 @@ public class ConsultaController {
             switch (opcao) {
                 case BUSCAR_EX_POR_ALUNO:
                     System.out.println("Você escolheu 'Buscar todos os exercícios realizados por um determinado aluno'");
+                    Thread.sleep(2000);
                     buscarExPorAluno(le);
                     System.out.println();
                     break;
 
                 case BUSCAR_EX_POR_DATA:
                     System.out.println("Você escolheu 'Buscar todos os exercícios realizados em uma data específica'");
-
+                    buscarExerciciosPorData(le);
+                    System.out.println();
                     break;
                 case BUSCAR_EX_POR_INTENSIDADE:
                     System.out.println("Você escolheu 'Buscar todos os exercícios de intensidade 'intenso' e duração maior que 10 minutos'");
@@ -111,8 +115,14 @@ public class ConsultaController {
             }
         } while (opcao != VOLTAR);
     }
+
+
     private void buscarExPorAluno (Scanner le){
         consultaService.buscarExerciciosPorAluno(le);
+    }
+
+    private void buscarExerciciosPorData (Scanner le){
+        consultaService.buscarExerciciosPorData(le);
     }
 
 

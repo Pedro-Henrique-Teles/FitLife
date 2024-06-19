@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,8 +64,27 @@ public class ConsultaService {
         Thread.sleep(4000);
     }
 
+    @SneakyThrows
+    public void buscarExerciciosPorData(Scanner le) {
+        //Insere a data
+        System.out.println("Digite a data no formato dd/MM/yyyy: ");
+        String dataStr = le.nextLine();
 
+        // Converte a string para Date
+        Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dataStr);
 
+        // Realiza a consulta
+        List<Exercicios> exercicios = exerciciosRepository.findByData(data);
+
+        // Exibe os exercícios
+        System.out.println("Exercícios realizados na data " + dataStr + ":");
+        Thread.sleep(1000);
+        for (Exercicios exercicio : exercicios) {
+            System.out.println(exercicio.getNome());
+        }
+        Thread.sleep(3000);
+
+    }
 
 
 }

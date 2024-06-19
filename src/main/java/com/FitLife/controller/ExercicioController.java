@@ -40,6 +40,7 @@ public class ExercicioController {
                 System.out.println("Por favor, insira um número válido.");
                 le.next(); // Limpa a entrada incorreta
                 System.out.print("Escolha uma opção: ");
+                System.out.println();
             }
             opcao = le.nextInt();
             le.nextLine();
@@ -69,8 +70,6 @@ public class ExercicioController {
         Exercicios exercicio = exercicioService.criarExercicio(le);
         if (exercicio == null) {
             System.out.println("Falha ao registrar exercício. Tente novamente.");
-        } else {
-            System.out.println("Exercício registrado com sucesso!");
         }
     }
 

@@ -63,10 +63,12 @@ public class ExercicioService {
 
         // Listar alunos
         List<Aluno> alunos = alunoRepository.findAll();
+        System.out.println();
         for (int i = 0; i < alunos.size(); i++) {
             Aluno aluno = alunos.get(i);
             System.out.println((i + 1) + ") ID: " + aluno.getId() + " - Nome: " + aluno.getNome());
         }
+        System.out.println();
         System.out.println("Digite o número do aluno:");
         while (!le.hasNextInt()) {
             System.out.println("Por favor, insira um número válido para o aluno.");
@@ -89,6 +91,7 @@ public class ExercicioService {
 
         exerciciosRepository.save(exercicio);
         System.out.println("Exercício registrado com sucesso!");
+        System.out.println();
 
         return exercicio;
     }
