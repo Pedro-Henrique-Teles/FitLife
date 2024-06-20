@@ -6,6 +6,7 @@ import com.FitLife.models.repository.AlunoRepository;
 import com.FitLife.models.repository.ExerciciosRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -149,6 +150,30 @@ public class ConsultaService {
                     " com um tempo total de " + maiorTempo.toHours() + " horas, " + maiorTempo.toMinutesPart() + " minutos e " + maiorTempo.toSecondsPart() + " segundos.");
         } else {
             System.out.println("Não foram encontrados alunos ou exercícios.");
+        }
+    }
+
+    @SneakyThrows
+    public void listarAlunosPorIntervaloDeDatas(Scanner le) {
+        try {
+            System.out.println("Digite a data de início no formato dd/MM/yyyy: ");
+            String dataInicioStr = le.nextLine();
+            Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(dataInicioStr);
+
+            System.out.println("Digite a data de fim no formato dd/MM/yyyy: ");
+            String dataFimStr = le.nextLine();
+            Date dataFim = new SimpleDateFormat("dd/MM/yyyy").parse(dataFimStr);
+            System.out.println();
+
+            List<Aluno> alunos = alunoRepository.findAll();
+            for (Aluno aluno : alunos) {
+                List<Exercicios> exercicios = exerciciosRepository.findByDataBetween(dataInicio, dataFim);
+                if (!exercicios.isEmpty()) {
+                    System.out.println(aluno.getNome());
+                }
+            }
+        } catch (ParseException e) {
+            System.out.println("Erro: O formato da data é inválido. Por favor, insira a data no formato dd/MM/yyyy.");
         }
     }
 }

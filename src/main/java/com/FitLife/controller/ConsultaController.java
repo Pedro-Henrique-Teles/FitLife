@@ -120,6 +120,14 @@ public class ConsultaController {
                     Thread.sleep(3000);
                     break;
 
+                case LISTAR_ALUNO_EX_INTEVALO_DATA:
+                    System.out.println("Você escolheu 'Listar alunos que realizaram exercícios em um intervalo de datas'");
+                    System.out.println();
+                    listarAlunosPorIntervaloDeDatas(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
                 case VOLTAR:
                     System.out.println("Você escolheu 'Voltar'");
                     return; // Volta para o menu principal
@@ -148,6 +156,10 @@ public class ConsultaController {
 
     private void exibirAlunoComMaiorTempoExercicios (Scanner le){
         consultaService.exibirAlunoComMaiorTempoExercicios(le);
+    }
+
+    private void listarAlunosPorIntervaloDeDatas (Scanner le) {
+        consultaService.listarAlunosPorIntervaloDeDatas(le);
     }
 
 }
