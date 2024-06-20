@@ -159,6 +159,22 @@ public class ConsultaController {
                     Thread.sleep(3000);
                     break;
 
+                case LISTAR_EX_POR_ALUNO_IDADE_SUPERIOR_30:
+                    System.out.println("Você escolheu 'Listar exercícios por alunos > 30 anos'");
+                    System.out.println();
+                    listarExerciciosPorAlunosAcima30(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
+                case BUSCAR_EX_REALIZADO_ALUNO_INSCRICAO_APOS_DATA:
+                    System.out.println("Você escolheu 'Buscar exercícios após data de inscrição'");
+                    System.out.println();
+                    buscarExerciciosPorDataInscricao(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
                 case VOLTAR:
                     System.out.println("Você escolheu 'Voltar'");
                     return; // Volta para o menu principal
@@ -205,6 +221,13 @@ public class ConsultaController {
         consultaService.calcularMediaDuracaoPorIntensidade(le);
     }
 
+    private void listarExerciciosPorAlunosAcima30 (Scanner le) {
+        consultaService.listarExerciciosPorAlunosAcima30(le);
+    }
+
+    private void buscarExerciciosPorDataInscricao (Scanner le) {
+        consultaService.buscarExerciciosPorDataInscricao(le);
+    }
 
 
 }

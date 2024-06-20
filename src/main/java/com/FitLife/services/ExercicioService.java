@@ -193,4 +193,6 @@ public class ExercicioService {
         exerciciosRepository.deleteById(exercicioParaRemover.getId());
         System.out.println("Exercício removido com sucesso.");
     }
+
+
 }

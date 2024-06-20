@@ -247,6 +247,63 @@ public class ConsultaService {
         }
     }
 
+    public void listarExerciciosPorAlunosAcima30(Scanner le) {
+        List<Aluno> alunos = alunoRepository.findByIdadeGreaterThan(30);
+        if (alunos.isEmpty()) {
+            System.out.println("Não há alunos com idade superior a 30 anos.");
+            return;
+        }
+
+        boolean encontrouExercicios = false;
+        for (Aluno aluno : alunos) {
+            List<Exercicios> exercicios = exerciciosRepository.findByIdAluno(aluno.getId());
+            if (!exercicios.isEmpty()) {
+                encontrouExercicios = true;
+                System.out.println("Aluno: " + aluno.getNome());
+                for (Exercicios exercicio : exercicios) {
+                    System.out.println("  Exercício: " + exercicio.getNome());
+                }
+            }
+        }
+
+        if (!encontrouExercicios) {
+            System.out.println("Não foram encontrados exercícios realizados por alunos com idade superior a 30 anos.");
+        }
+    }
+
+    @SneakyThrows
+    public void buscarExerciciosPorDataInscricao(Scanner le) {
+        try {
+            System.out.println("Digite a data no formato dd/MM/yyyy: ");
+            String dataStr = le.nextLine();
+            Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dataStr);
+            System.out.println();
+
+            List<Aluno> alunos = alunoRepository.findAll();
+            boolean encontrouAlunos = false;
+            for (Aluno aluno : alunos) {
+                if (aluno.getDataInscricao() != null && aluno.getDataInscricao().after(data)) {
+                    List<Exercicios> exercicios = exerciciosRepository.findByIdAluno(aluno.getId());
+                    if (!exercicios.isEmpty()) {
+                        encontrouAlunos = true;
+                        System.out.println("Aluno: " + aluno.getNome());
+                        for (Exercicios exercicio : exercicios) {
+                            System.out.println("  Exercício: " + exercicio.getNome());
+                        }
+                    }
+                }
+            }
+
+            if (!encontrouAlunos) {
+                System.out.println("Não há alunos que se inscreveram após a data especificada.");
+            }
+        } catch (ParseException e) {
+            System.out.println("Erro: O formato da data é inválido. Por favor, insira a data no formato dd/MM/yyyy.");
+        }
+    }
+
+
+
 
 }
 
