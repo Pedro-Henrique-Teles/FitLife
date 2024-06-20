@@ -1,18 +1,23 @@
 package com.FitLife.controller;
 
+import com.FitLife.models.Exercicios;
 import com.FitLife.models.repository.AlunoRepository;
 import com.FitLife.models.repository.ExerciciosRepository;
 import com.FitLife.services.ConsultaService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 @Controller
 public class ConsultaController {
     private static final int BUSCAR_EX_POR_ALUNO = 1;
     private static final int BUSCAR_EX_POR_DATA = 2;
-    private static final int BUSCAR_EX_POR_INTENSIDADE= 3;
+    private static final int BUSCAR_EX_POR_INTENSIDADE = 3;
     private static final int OBTER_MEDIA_TODOS_ALUNOS = 4;
     private static final int EXIBIR_ALUNO_MAIOR_TMP_EX = 5;
     private static final int LISTAR_ALUNO_EX_INTEVALO_DATA = 6;
@@ -41,7 +46,7 @@ public class ConsultaController {
     private AlunoRepository alunoRepository;
 
     @Autowired
-    public ConsultaController(ConsultaService consultaService){
+    public ConsultaController(ConsultaService consultaService) {
         this.consultaService = consultaService;
     }
 
@@ -191,6 +196,14 @@ public class ConsultaController {
                     Thread.sleep(3000);
                     break;
 
+                case EXIBIR_EX_MAIS_COMUM:
+                    System.out.println("Você escolheu 'Exibir exercício mais comum'");
+                    System.out.println();
+                    exibirExercicioMaisComum(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
 
                 case VOLTAR:
                     System.out.println("Você escolheu 'Voltar'");
@@ -202,57 +215,59 @@ public class ConsultaController {
     }
 
 
-    private void buscarExPorAluno (Scanner le){
+    private void buscarExPorAluno(Scanner le) {
         consultaService.buscarExerciciosPorAluno(le);
     }
 
-    private void buscarExerciciosPorData (Scanner le){
+    private void buscarExerciciosPorData(Scanner le) {
         consultaService.buscarExerciciosPorData(le);
     }
 
-    private void buscarExerciciosPorIntensidadeEDuracao (Scanner le){
+    private void buscarExerciciosPorIntensidadeEDuracao(Scanner le) {
         consultaService.buscarExerciciosPorIntensidadeEDuracao(le);
     }
 
-    private void calcularMediaDuracaoExercicios (Scanner le){
+    private void calcularMediaDuracaoExercicios(Scanner le) {
         consultaService.calcularMediaDuracaoExercicios(le);
     }
 
-    private void exibirAlunoComMaiorTempoExercicios (Scanner le){
+    private void exibirAlunoComMaiorTempoExercicios(Scanner le) {
         consultaService.exibirAlunoComMaiorTempoExercicios(le);
     }
 
-    private void listarAlunosPorIntervaloDeDatas (Scanner le) {
+    private void listarAlunosPorIntervaloDeDatas(Scanner le) {
         consultaService.listarAlunosPorIntervaloDeDatas(le);
     }
 
-    private void buscarExerciciosPorSexo (Scanner le) {
+    private void buscarExerciciosPorSexo(Scanner le) {
         consultaService.buscarExerciciosPorSexo(le);
     }
 
-    private void contarExerciciosPorAluno (Scanner le) {
+    private void contarExerciciosPorAluno(Scanner le) {
         consultaService.contarExerciciosPorAluno(le);
     }
 
-    private void calcularMediaDuracaoPorIntensidade (Scanner le) {
+    private void calcularMediaDuracaoPorIntensidade(Scanner le) {
         consultaService.calcularMediaDuracaoPorIntensidade(le);
     }
 
-    private void listarExerciciosPorAlunosAcima30 (Scanner le) {
+    private void listarExerciciosPorAlunosAcima30(Scanner le) {
         consultaService.listarExerciciosPorAlunosAcima30(le);
     }
 
-    private void buscarExerciciosPorDataInscricao (Scanner le) {
+    private void buscarExerciciosPorDataInscricao(Scanner le) {
         consultaService.buscarExerciciosPorDataInscricao(le);
     }
 
-    private void listarExerciciosPorInicialNomeAluno (Scanner le) {
+    private void listarExerciciosPorInicialNomeAluno(Scanner le) {
         consultaService.listarExerciciosPorInicialNomeAluno(le);
     }
 
-    private void contarExerciciosPorDiaNaUltimaSemana (Scanner le) {
+    private void contarExerciciosPorDiaNaUltimaSemana(Scanner le) {
         consultaService.contarExerciciosPorDiaNaUltimaSemana(le);
     }
 
-
+    private void exibirExercicioMaisComum (Scanner le){
+        consultaService.exibirExercicioMaisComum(le);
+    }
 }

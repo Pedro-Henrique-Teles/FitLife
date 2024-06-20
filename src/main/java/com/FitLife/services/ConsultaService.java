@@ -352,9 +352,33 @@ public class ConsultaService {
         }
     }
 
+    public void exibirExercicioMaisComum(Scanner le) {
+        List<Exercicios> exercicios = exerciciosRepository.findAll();
 
+        if (exercicios.isEmpty()) {
+            System.out.println("Não foram realizados exercícios.");
+            return;
+        }
 
+        Map<String, Integer> contagemPorExercicio = new HashMap<>();
+        for (Exercicios exercicio : exercicios) {
+            String nomeExercicio = exercicio.getNome();
+            contagemPorExercicio.put(nomeExercicio, contagemPorExercicio.getOrDefault(nomeExercicio, 0) + 1);
+        }
 
+        String exercicioMaisComum = null;
+        int maxContagem = 0;
+        for (Map.Entry<String, Integer> entry : contagemPorExercicio.entrySet()) {
+            String nomeExercicio = entry.getKey();
+            int contagem = entry.getValue();
+            if (contagem > maxContagem) {
+                exercicioMaisComum = nomeExercicio;
+                maxContagem = contagem;
+            }
+        }
 
+        System.out.println("O exercício mais comum realizado pelos alunos é: " + exercicioMaisComum);
+    }
 }
+
 
