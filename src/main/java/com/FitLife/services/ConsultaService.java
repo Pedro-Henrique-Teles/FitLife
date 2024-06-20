@@ -106,7 +106,7 @@ public class ConsultaService {
         }
     }
 
-    public void calcularMediaDuracaoExercicios() {
+    public void calcularMediaDuracaoExercicios(Scanner le) {
         List<Exercicios> exercicios = exerciciosRepository.findAllDurations();
 
         long totalSeconds = 0;
@@ -124,6 +124,32 @@ public class ConsultaService {
         System.out.println("A média de duração dos exercícios é: " + horas + " horas, " + minutos + " minutos e " + segundos + " segundos.");
     }
 
+    public void exibirAlunoComMaiorTempoExercicios(Scanner le) {
+        List<Aluno> alunos = alunoRepository.findAll();
 
+        Aluno alunoComMaiorTempo = null;
+        Duration maiorTempo = Duration.ZERO;
 
+        for (Aluno aluno : alunos) {
+            List<Exercicios> exercicios = exerciciosRepository.findByIdAluno(aluno.getId());
+
+            Duration tempoTotal = Duration.ZERO;
+            for (Exercicios exercicio : exercicios) {
+                tempoTotal = tempoTotal.plus(exercicio.getDuracao());
+            }
+
+            if (tempoTotal.compareTo(maiorTempo) > 0) {
+                alunoComMaiorTempo = aluno;
+                maiorTempo = tempoTotal;
+            }
+        }
+
+        if (alunoComMaiorTempo != null) {
+            System.out.println("O aluno com o maior tempo de exercícios realizados é: " + alunoComMaiorTempo.getNome() +
+                    " com um tempo total de " + maiorTempo.toHours() + " horas, " + maiorTempo.toMinutesPart() + " minutos e " + maiorTempo.toSecondsPart() + " segundos.");
+        } else {
+            System.out.println("Não foram encontrados alunos ou exercícios.");
+        }
+    }
 }
+

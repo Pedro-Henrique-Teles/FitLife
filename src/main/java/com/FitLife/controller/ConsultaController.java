@@ -106,15 +106,18 @@ public class ConsultaController {
                 case OBTER_MEDIA_TODOS_ALUNOS:
                     System.out.println("Você escolheu 'Obter a média de duração dos exercícios realizados por todos os alunos'");
                     System.out.println();
-                    Thread.sleep(3000);
+                    Thread.sleep(2000);
                     calcularMediaDuracaoExercicios(le);
                     System.out.println();
-                    le.nextLine();
+
                     break;
 
                 case EXIBIR_ALUNO_MAIOR_TMP_EX:
                     System.out.println("Você escolheu 'Exibir o aluno com o maior tempo de exercícios realizados'");
-
+                    System.out.println();
+                    exibirAlunoComMaiorTempoExercicios(le);
+                    System.out.println();
+                    Thread.sleep(3000);
                     break;
 
                 case VOLTAR:
@@ -140,7 +143,11 @@ public class ConsultaController {
     }
 
     private void calcularMediaDuracaoExercicios (Scanner le){
-        consultaService.calcularMediaDuracaoExercicios();
+        consultaService.calcularMediaDuracaoExercicios(le);
+    }
+
+    private void exibirAlunoComMaiorTempoExercicios (Scanner le){
+        consultaService.exibirAlunoComMaiorTempoExercicios(le);
     }
 
 }
