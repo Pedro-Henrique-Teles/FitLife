@@ -4,6 +4,7 @@ import com.FitLife.services.ConsultaService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.util.pattern.PathPattern;
 
 import java.util.Scanner;
 
@@ -128,6 +129,14 @@ public class ConsultaController {
                     Thread.sleep(3000);
                     break;
 
+                case BUSCAR_EX_SEXO:
+                    System.out.println("Você escolheu 'Buscar exercícios realizados por sexo'");
+                    System.out.println();
+                    buscarExerciciosPorSexo(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
                 case VOLTAR:
                     System.out.println("Você escolheu 'Voltar'");
                     return; // Volta para o menu principal
@@ -160,6 +169,10 @@ public class ConsultaController {
 
     private void listarAlunosPorIntervaloDeDatas (Scanner le) {
         consultaService.listarAlunosPorIntervaloDeDatas(le);
+    }
+
+    private void buscarExerciciosPorSexo (Scanner le) {
+        consultaService.buscarExerciciosPorSexo(le);
     }
 
 }

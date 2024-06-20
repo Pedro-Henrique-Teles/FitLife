@@ -176,5 +176,45 @@ public class ConsultaService {
             System.out.println("Erro: O formato da data é inválido. Por favor, insira a data no formato dd/MM/yyyy.");
         }
     }
+
+    public void buscarExerciciosPorSexo(Scanner le) {
+        try {
+            System.out.println("Digite o sexo dos alunos (M para masculino, F para feminino): ");
+            String sexo = le.nextLine();
+            System.out.println();
+
+            if (!sexo.equalsIgnoreCase("M") && !sexo.equalsIgnoreCase("F")) {
+                System.out.println("Erro: Sexo inválido. Por favor, insira M para masculino ou F para feminino.");
+                System.out.println();
+                return;
+            }
+
+            List<Aluno> alunos = alunoRepository.findBySexo(sexo);
+            if (alunos.isEmpty()) {
+                System.out.println("Erro: Não foram encontrados alunos do sexo " + sexo + ".");
+                return;
+            }
+
+            boolean encontrouExercicios = false;
+            for (Aluno aluno : alunos) {
+                List<Exercicios> exercicios = exerciciosRepository.findByIdAluno(aluno.getId());
+                if (!exercicios.isEmpty()) {
+                    encontrouExercicios = true;
+                    System.out.println("Aluno: " + aluno.getNome());
+                    for (Exercicios exercicio : exercicios) {
+                        System.out.println("  Exercício: " + exercicio.getNome());
+                    }
+                }
+            }
+
+            if (!encontrouExercicios) {
+                System.out.println("Erro: Não foram encontrados exercícios realizados por alunos do sexo " + sexo + ".");
+            }
+        } catch (Exception e) {
+            System.out.println("Erro: Ocorreu um erro ao buscar os exercícios. Por favor, tente novamente.");
+        }
+    }
+
+
 }
 
