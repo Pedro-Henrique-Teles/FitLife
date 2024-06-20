@@ -215,6 +215,14 @@ public class ConsultaService {
         }
     }
 
+    public void contarExerciciosPorAluno(Scanner le) {
+        List<Aluno> alunos = alunoRepository.findAll();
+        for (Aluno aluno : alunos) {
+            List<Exercicios> exercicios = exerciciosRepository.findByIdAluno(aluno.getId());
+            System.out.println("Aluno: " + aluno.getNome() + " - Número de exercícios realizados: " + exercicios.size());
+        }
+    }
+
 
 }
 

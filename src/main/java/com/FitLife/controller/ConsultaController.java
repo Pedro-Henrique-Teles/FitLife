@@ -137,6 +137,14 @@ public class ConsultaController {
                     Thread.sleep(3000);
                     break;
 
+                case CONTAR_NUMERO_EX_POR_ALUNO:
+                    System.out.println("Você escolheu 'Contar número total de exercícios por aluno'");
+                    System.out.println();
+                    contarExerciciosPorAluno(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
                 case VOLTAR:
                     System.out.println("Você escolheu 'Voltar'");
                     return; // Volta para o menu principal
@@ -173,6 +181,10 @@ public class ConsultaController {
 
     private void buscarExerciciosPorSexo (Scanner le) {
         consultaService.buscarExerciciosPorSexo(le);
+    }
+
+    private void contarExerciciosPorAluno (Scanner le) {
+        consultaService.contarExerciciosPorAluno(le);
     }
 
 }
