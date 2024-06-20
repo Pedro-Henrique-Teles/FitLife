@@ -175,6 +175,14 @@ public class ConsultaController {
                     Thread.sleep(3000);
                     break;
 
+                case LISTAR_ALUNO_POR_LETRA:
+                    System.out.println("Você escolheu 'Buscar exercícios após data de inscrição'");
+                    System.out.println();
+                    listarExerciciosPorInicialNomeAluno(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
                 case VOLTAR:
                     System.out.println("Você escolheu 'Voltar'");
                     return; // Volta para o menu principal
@@ -227,6 +235,10 @@ public class ConsultaController {
 
     private void buscarExerciciosPorDataInscricao (Scanner le) {
         consultaService.buscarExerciciosPorDataInscricao(le);
+    }
+
+    private void listarExerciciosPorInicialNomeAluno (Scanner le) {
+        consultaService.listarExerciciosPorInicialNomeAluno(le);
     }
 
 

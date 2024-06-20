@@ -302,6 +302,31 @@ public class ConsultaService {
         }
     }
 
+    public void listarExerciciosPorInicialNomeAluno(Scanner le) {
+        System.out.println("Digite a letra inicial do nome dos alunos: ");
+        String letraInicial = le.nextLine().toUpperCase();
+
+        List<Aluno> alunos = alunoRepository.findAll();
+        boolean encontrouAlunos = false;
+        for (Aluno aluno : alunos) {
+            if (aluno.getNome().toUpperCase().startsWith(letraInicial)) {
+                encontrouAlunos = true;
+                List<Exercicios> exercicios = exerciciosRepository.findByIdAluno(aluno.getId());
+                if (!exercicios.isEmpty()) {
+                    System.out.println("Aluno: " + aluno.getNome());
+                    for (Exercicios exercicio : exercicios) {
+                        System.out.println("  Exercício: " + exercicio.getNome());
+                    }
+                }
+            }
+        }
+
+        if (!encontrouAlunos) {
+            System.out.println("Não foram encontrados alunos cujo nome começa com a letra '" + letraInicial + "'.");
+        }
+    }
+
+
 
 
 
