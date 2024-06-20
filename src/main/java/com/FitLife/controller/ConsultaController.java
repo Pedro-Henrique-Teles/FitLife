@@ -1,11 +1,11 @@
 package com.FitLife.controller;
 
+import com.FitLife.models.repository.AlunoRepository;
+import com.FitLife.models.repository.ExerciciosRepository;
 import com.FitLife.services.ConsultaService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.util.pattern.PathPattern;
-
 import java.util.Scanner;
 
 @Controller
@@ -33,6 +33,12 @@ public class ConsultaController {
     private static final int VOLTAR = 21;
 
     private final ConsultaService consultaService;
+
+    @Autowired
+    private ExerciciosRepository exerciciosRepository;
+
+    @Autowired
+    private AlunoRepository alunoRepository;
 
     @Autowired
     public ConsultaController(ConsultaService consultaService){
@@ -145,6 +151,14 @@ public class ConsultaController {
                     Thread.sleep(3000);
                     break;
 
+                case OBTER_MED_DUR_INTENSIDADE:
+                    System.out.println("Você escolheu 'Obter média de duração por intensidade'");
+                    System.out.println();
+                    calcularMediaDuracaoPorIntensidade(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
                 case VOLTAR:
                     System.out.println("Você escolheu 'Voltar'");
                     return; // Volta para o menu principal
@@ -186,5 +200,11 @@ public class ConsultaController {
     private void contarExerciciosPorAluno (Scanner le) {
         consultaService.contarExerciciosPorAluno(le);
     }
+
+    private void calcularMediaDuracaoPorIntensidade (Scanner le) {
+        consultaService.calcularMediaDuracaoPorIntensidade(le);
+    }
+
+
 
 }

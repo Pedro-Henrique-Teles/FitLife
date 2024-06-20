@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 @Service
 public class ConsultaService {
@@ -220,6 +218,32 @@ public class ConsultaService {
         for (Aluno aluno : alunos) {
             List<Exercicios> exercicios = exerciciosRepository.findByIdAluno(aluno.getId());
             System.out.println("Aluno: " + aluno.getNome() + " - Número de exercícios realizados: " + exercicios.size());
+        }
+    }
+
+    public void calcularMediaDuracaoPorIntensidade(Scanner le) {
+        List<Exercicios> exercicios = exerciciosRepository.findAll();
+
+        Map<String, Long> totalDuracaoPorIntensidade = new HashMap<>();
+        Map<String, Integer> contagemPorIntensidade = new HashMap<>();
+
+        for (Exercicios exercicio : exercicios) {
+            String intensidade = exercicio.getIntensidade();
+            long duracao = exercicio.getDuracao().getSeconds();
+
+            totalDuracaoPorIntensidade.put(intensidade, totalDuracaoPorIntensidade.getOrDefault(intensidade, 0L) + duracao);
+            contagemPorIntensidade.put(intensidade, contagemPorIntensidade.getOrDefault(intensidade, 0) + 1);
+        }
+
+        for (Map.Entry<String, Long> entry : totalDuracaoPorIntensidade.entrySet()) {
+            String intensidade = entry.getKey();
+            long totalDuracao = entry.getValue();
+            int contagem = contagemPorIntensidade.get(intensidade);
+
+            long mediaDuracao = totalDuracao / contagem;
+            Duration mediaDuracaoDuration = Duration.ofSeconds(mediaDuracao);
+
+            System.out.println("Intensidade: " + intensidade + " - Média de duração: " + mediaDuracaoDuration.toHours() + " horas, " + mediaDuracaoDuration.toMinutesPart() + " minutos e " + mediaDuracaoDuration.toSecondsPart() + " segundos.");
         }
     }
 
