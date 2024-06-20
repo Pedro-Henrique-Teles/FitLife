@@ -17,5 +17,7 @@ public interface ExerciciosRepository extends MongoRepository<Exercicios, String
     List<Exercicios> findByIntensidade (String intensidade);
     List<Exercicios> findByDataBetween (Date dataInicio, Date dataFim);
     List<Exercicios> findByDataAfter (Date data);
+    @Query(value = "{}", fields = "{ 'duracao' : 1 }")
+    List<Exercicios> findAllDurations();
 
 }

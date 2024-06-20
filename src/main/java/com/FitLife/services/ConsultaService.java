@@ -106,7 +106,23 @@ public class ConsultaService {
         }
     }
 
+    public void calcularMediaDuracaoExercicios() {
+        List<Exercicios> exercicios = exerciciosRepository.findAllDurations();
 
+        long totalSeconds = 0;
+        for (Exercicios exercicio : exercicios) {
+            totalSeconds += exercicio.getDuracao().getSeconds();
+        }
+
+        long mediaSeconds = totalSeconds / exercicios.size();
+        Duration mediaDuracao = Duration.ofSeconds(mediaSeconds);
+
+        long horas = mediaDuracao.toHours();
+        int minutos = mediaDuracao.toMinutesPart();
+        int segundos = mediaDuracao.toSecondsPart();
+
+        System.out.println("A média de duração dos exercícios é: " + horas + " horas, " + minutos + " minutos e " + segundos + " segundos.");
+    }
 
 
 
