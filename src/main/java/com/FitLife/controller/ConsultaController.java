@@ -1,6 +1,5 @@
 package com.FitLife.controller;
 
-import com.FitLife.models.Exercicios;
 import com.FitLife.models.repository.AlunoRepository;
 import com.FitLife.models.repository.ExerciciosRepository;
 import com.FitLife.services.ConsultaService;
@@ -8,9 +7,6 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 @Controller
@@ -30,11 +26,11 @@ public class ConsultaController {
     private static final int CONT_EX_NA_ULTIMA_SEMANA = 13;
     private static final int EXIBIR_EX_MAIS_COMUM = 14;
     private static final int OBTER_LISTA_ALUNOS_QUE_REALIZARAM_EX_TODAS_INTENSIDADES = 15;
-    private static final int DISTRIBUICAO_INTENSIDADE_EXERCICIOS = 16;
-    private static final int DURACAO_TOTAL_EXERCICIOS_POR_ALUNO = 17;
-    private static final int EXERCICIO_MAIS_LONGO_POR_ALUNO = 18;
-    private static final int MEDIA_EXERCICIOS_POR_DIA = 19;
-    private static final int CONTAGEM_ALUNOS_COM_TODAS_INTENSIDADES = 20;
+    private static final int MEDIA_IDADE_ALUNOS = 16;
+    private static final int LISTAR_ALUNOS_POR_SEXO = 17;
+    private static final int EXIBIR_ALUNO_MAIS_VELHO = 18;
+    private static final int EXIBIR_ALUNOS_POR_FAIXA_ETARIA = 19;
+    private static final int EXIBIR_ALUNOS_POR_INTENSIDADE_EXERCICIO = 20;
     private static final int VOLTAR = 21;
 
     private final ConsultaService consultaService;
@@ -76,11 +72,11 @@ public class ConsultaController {
             System.out.println("┃ 14) Exibir exercício mais comum                ┃");
             System.out.println("┃ 15) Listar alunos que realizaram todas as      ┃");
             System.out.println("┃     intensidades                               ┃");
-            System.out.println("┃ 16) Distribuição de intensidade dos exercícios ┃");
-            System.out.println("┃ 17) Duração total de exercícios por aluno      ┃");
-            System.out.println("┃ 18) Exercício mais longo por aluno             ┃");
-            System.out.println("┃ 19) Média de exercícios por dia                ┃");
-            System.out.println("┃ 20) Contagem de alunos com todas intensidades  ┃");
+            System.out.println("┃ 16) Idade Média dos Alunos                     ┃");
+            System.out.println("┃ 17) Listar alunos por sexo                     ┃");
+            System.out.println("┃ 18) Exibir aluno mais velho                    ┃");
+            System.out.println("┃ 19) Exibir alunos por faixa etária             ┃");
+            System.out.println("┃ 20) Contagem de Alunos por intensidade         ┃");
             System.out.println("┃ 21) Voltar                                     ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.print("Escolha uma opção: ");
@@ -204,6 +200,53 @@ public class ConsultaController {
                     Thread.sleep(3000);
                     break;
 
+                case OBTER_LISTA_ALUNOS_QUE_REALIZARAM_EX_TODAS_INTENSIDADES:
+                    System.out.println("Você escolheu 'Listar alunos que realizaram todas as intensidades'");
+                    System.out.println();
+                    listarAlunosPorNiveisIntensidade(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
+                case MEDIA_IDADE_ALUNOS:
+                    System.out.println("Você escolheu 'Exibir média de idade'");
+                    System.out.println();
+                    exibirMediaIdade(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
+                case LISTAR_ALUNOS_POR_SEXO:
+                    System.out.println("Você escolheu 'Listar alunos por sexo'");
+                    System.out.println();
+                    listarAlunosPorSexo(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
+                case EXIBIR_ALUNO_MAIS_VELHO:
+                    System.out.println("Você escolheu 'Exibir Aluno mais velho'");
+                    System.out.println();
+                    exibirAlunoMaisVelho(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
+                case EXIBIR_ALUNOS_POR_FAIXA_ETARIA:
+                    System.out.println("Você escolheu 'Exibir alunos por faixa etária'");
+                    System.out.println();
+                    exibirAlunosPorFaixaEtaria(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
+
+                case EXIBIR_ALUNOS_POR_INTENSIDADE_EXERCICIO:
+                    System.out.println("Você escolheu 'Exibir alunos por intensidade de exercício'");
+                    System.out.println();
+                    exibirAlunosPorIntensidadeExercicio(le);
+                    System.out.println();
+                    Thread.sleep(3000);
+                    break;
 
                 case VOLTAR:
                     System.out.println("Você escolheu 'Voltar'");
@@ -270,4 +313,29 @@ public class ConsultaController {
     private void exibirExercicioMaisComum (Scanner le){
         consultaService.exibirExercicioMaisComum(le);
     }
+
+    private void listarAlunosPorNiveisIntensidade (Scanner le) {
+        consultaService.listarAlunosPorNiveisIntensidade(le);
+    }
+
+    private void exibirMediaIdade (Scanner le) {
+        consultaService.exibirMediaIdade();
+    }
+
+    private void listarAlunosPorSexo (Scanner le) {
+        consultaService.listarAlunosPorSexo();
+    }
+
+    private void exibirAlunoMaisVelho (Scanner le) {
+        consultaService.exibirAlunoMaisVelho();
+    }
+
+    public void exibirAlunosPorFaixaEtaria (Scanner le) {
+        consultaService.exibirAlunosPorFaixaEtaria();
+    }
+
+    public void exibirAlunosPorIntensidadeExercicio (Scanner le){
+        consultaService.exibirAlunosPorIntensidadeExercicio();
+    }
+
 }

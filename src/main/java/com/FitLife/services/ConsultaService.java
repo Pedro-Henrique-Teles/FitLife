@@ -6,6 +6,7 @@ import com.FitLife.models.repository.AlunoRepository;
 import com.FitLife.models.repository.ExerciciosRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
@@ -378,6 +379,63 @@ public class ConsultaService {
         }
 
         System.out.println("O exercício mais comum realizado pelos alunos é: " + exercicioMaisComum);
+    }
+
+    public void listarAlunosPorNiveisIntensidade(Scanner le) {
+        List<Aluno> alunos = alunoRepository.findAll();
+        boolean encontrouAlunos = false;
+        for (Aluno aluno : alunos) {
+            List<Exercicios> exercicios = exerciciosRepository.findByIdAluno(aluno.getId());
+            Set<String> intensidades = new HashSet<>();
+            for (Exercicios exercicio : exercicios) {
+                intensidades.add(exercicio.getIntensidade());
+            }
+            if (intensidades.contains("alta") && intensidades.contains("baixa") && intensidades.contains("media")) {
+                encontrouAlunos = true;
+                System.out.println("Aluno: " + aluno.getNome());
+            }
+        }
+
+        if (!encontrouAlunos) {
+            System.out.println("Não foram encontrados alunos que realizaram exercícios de todos os níveis de intensidade.");
+        }
+    }
+
+    public void exibirMediaIdade() {
+        AggregationResults<Map> result = alunoRepository.findIdadeMedia();
+        Map<String, Object> averageAge = result.getUniqueMappedResult();
+        System.out.println("Média de idade: " + averageAge.get("mediaIdade"));
+    }
+
+    public void listarAlunosPorSexo() {
+        AggregationResults<Map> result = alunoRepository.countBySexo();
+        List<Map> counts = result.getMappedResults();
+        for (Map count : counts) {
+            System.out.println("Sexo: " + count.get("_id") + ", Quantidade: " + count.get("quantidade"));
+        }
+    }
+
+    public void exibirAlunoMaisVelho() {
+        AggregationResults<Aluno> result = alunoRepository.findAlunoMaisVelho();
+        Aluno oldestStudent = result.getUniqueMappedResult();
+        System.out.println("Aluno mais velho: " + oldestStudent.getNome() + ", Idade: " + oldestStudent.getIdade());
+    }
+
+    public void exibirAlunosPorFaixaEtaria() {
+        AggregationResults<Map> result = alunoRepository.countStudentsByAgeRange();
+        List<Map> counts = result.getMappedResults();
+        for (Map count : counts) {
+            System.out.println("Faixa etária: " + count.get("_id") + ", Quantidade: " + count.get("quantidade"));
+        }
+
+    }
+
+    public void exibirAlunosPorIntensidadeExercicio() {
+        AggregationResults<Map> result = exerciciosRepository.countStudentsByExerciseIntensity();
+        List<Map> counts = result.getMappedResults();
+        for (Map count : counts) {
+            System.out.println("Intensidade: " + count.get("_id") + ", Quantidade: " + count.get("quantidade"));
+        }
     }
 }
 
