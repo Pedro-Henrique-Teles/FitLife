@@ -326,6 +326,32 @@ public class ConsultaService {
         }
     }
 
+    public void contarExerciciosPorDiaNaUltimaSemana(Scanner le) {
+        Calendar calendar = Calendar.getInstance();
+        Date hoje = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        Date umaSemanaAtras = calendar.getTime();
+
+        List<Exercicios> exercicios = exerciciosRepository.findByDataBetween(umaSemanaAtras, hoje);
+
+        if (exercicios.isEmpty()) {
+            System.out.println("Não foram realizados exercícios na última semana.");
+            return;
+        }
+
+        Map<Date, Integer> contagemPorDia = new HashMap<>();
+        for (Exercicios exercicio : exercicios) {
+            Date data = exercicio.getData();
+            contagemPorDia.put(data, contagemPorDia.getOrDefault(data, 0) + 1);
+        }
+
+        for (Map.Entry<Date, Integer> entry : contagemPorDia.entrySet()) {
+            Date data = entry.getKey();
+            int contagem = entry.getValue();
+            System.out.println("Data: " + data + " - Número de exercícios realizados: " + contagem);
+        }
+    }
+
 
 
 
