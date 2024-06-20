@@ -48,7 +48,8 @@ public class ConsultaController {
             System.out.println("┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫");
             System.out.println("┃ 1) Buscar exercícios por aluno                 ┃");
             System.out.println("┃ 2) Buscar exercícios por data                  ┃");
-            System.out.println("┃ 3) Buscar exercícios por intensidade           ┃");
+            System.out.println("┃ 3) Buscar exercícios por intensidade alta      ┃");
+            System.out.println("┃    e duração maior que 10 min                  ┃");
             System.out.println("┃ 4) Obter média de duração dos exercícios       ┃");
             System.out.println("┃ 5) Exibir aluno com maior tempo de exercícios  ┃");
             System.out.println("┃ 6) Listar alunos que realizaram exercícios     ┃");
@@ -94,10 +95,14 @@ public class ConsultaController {
                     buscarExerciciosPorData(le);
                     System.out.println();
                     break;
+
                 case BUSCAR_EX_POR_INTENSIDADE:
                     System.out.println("Você escolheu 'Buscar todos os exercícios de intensidade 'intenso' e duração maior que 10 minutos'");
-
+                    buscarExerciciosPorIntensidadeEDuracao(le);
+                    System.out.println();
+                    le.nextLine();
                     break;
+
                 case OBTER_MEDIA_TODOS_ALUNOS:
                     System.out.println("Você escolheu 'Obter a média de duração dos exercícios realizados por todos os alunos'");
 
@@ -125,7 +130,9 @@ public class ConsultaController {
         consultaService.buscarExerciciosPorData(le);
     }
 
-
+    private void buscarExerciciosPorIntensidadeEDuracao (Scanner le){
+        consultaService.buscarExerciciosPorIntensidadeEDuracao(le);
+    }
 
 
 }

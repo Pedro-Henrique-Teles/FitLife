@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -85,6 +86,28 @@ public class ConsultaService {
         Thread.sleep(3000);
 
     }
+
+    public void buscarExerciciosPorIntensidadeEDuracao(Scanner le) {
+        String intensidade = "alta";
+        Duration duracao = Duration.ofMinutes(10);
+
+        // Realiza a consulta
+        List<Exercicios> exercicios = exerciciosRepository.findByIntensidadeAndDuracaoGreaterThan(intensidade, duracao);
+
+        // Verifica se encontrou algum exercício
+        if (exercicios.isEmpty()) {
+            System.out.println("Não foram encontrados exercícios de intensidade '" + intensidade + "' e duração maior que " + duracao.toMinutes() + " minutos.");
+        } else {
+            // Exibe os exercícios
+            System.out.println("Exercícios de intensidade '" + intensidade + "' e duração maior que " + duracao.toMinutes() + " minutos:");
+            for (Exercicios exercicio : exercicios) {
+                System.out.println(exercicio.getNome());
+            }
+        }
+    }
+
+
+
 
 
 }
