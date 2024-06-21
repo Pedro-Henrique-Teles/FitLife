@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -20,6 +21,7 @@ public class FichaTreinoService {
     private final FichaTreinoRepository fichaTreinoRepository;
     private final AlunoRepository alunoRepository;
     private final ExerciciosRepository exerciciosRepository;
+
 
     @Autowired
     public FichaTreinoService(FichaTreinoRepository fichaTreinoRepository, AlunoRepository alunoRepository, ExerciciosRepository exerciciosRepository) {
@@ -161,6 +163,38 @@ public class FichaTreinoService {
 
         System.out.println("Fichas de treino do aluno " + alunoId + " excluídas com sucesso.");
     }
+
+    public void listarFichas(Scanner le) {
+        List<FichaTreino> fichas = fichaTreinoRepository.findAll();
+
+        if (fichas.isEmpty()) {
+            System.out.println("Não há fichas de treino cadastradas.");
+            return;
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        System.out.println("Lista de Fichas de Treino:");
+        for (FichaTreino ficha : fichas) {
+            System.out.println("=====================================");
+            System.out.println("ID: " + ficha.getId());
+            System.out.println("Aluno: " + ficha.getAluno().getNome());
+            System.out.println("Dias da Semana: " + ficha.getDiasDaSemana());
+            System.out.println("Repetições: " + ficha.getRepeticoes());
+            System.out.println("Tempo de Descanso: " + (ficha.getTempoDeDescanso() != null ? dateFormat.format(ficha.getTempoDeDescanso()) : "N/A"));
+
+            System.out.println("Exercícios:");
+            if (ficha.getExercicios() != null) {
+                for (Exercicios exercicio : ficha.getExercicios()) {
+                    System.out.println("- " + exercicio.getNome() + " (" + ficha.getRepeticoes() + " séries)");
+                }
+            } else {
+                System.out.println("Nenhum exercício cadastrado.");
+            }
+        }
+        System.out.println("=====================================");
+    }
+
 
 }
 

@@ -40,7 +40,7 @@ public class FichaTreinoController {
             System.out.println("┃ 1) Cadastrar Ficha                             ┃");
             System.out.println("┃ 2) Deletar Ficha                               ┃");
             System.out.println("┃ 3) Listar Fichas                               ┃");
-            System.out.println("┃ 4) Exibir aluno com maior tempo de exercícios  ┃");
+            System.out.println("┃ 4) Sair                                        ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.print("Escolha uma opção: ");
             System.out.println();
@@ -68,6 +68,12 @@ public class FichaTreinoController {
                         System.out.println();
                         break;
 
+                case LISTAR_FICHAS:
+                    System.out.println("Você escolheu 'Listar Fichas'");
+                    Thread.sleep(2000);
+                    listarFichas(le);
+                    System.out.println();
+                    break;
 
                 case OPCAO_SAIR:
                     System.out.println("Você escolheu 'Voltar'");
@@ -84,6 +90,10 @@ public class FichaTreinoController {
 
     private void listarEExcluirFichasPorAluno(Scanner le) {
         fichaTreinoService.listarEExcluirFichasPorAluno(le);
+    }
+
+    private void listarFichas(Scanner le) {
+        fichaTreinoService.listarFichas(le);
     }
 
 }
