@@ -12,17 +12,21 @@ public class ConsoleController implements CommandLineRunner {
     private static final int OPCAO_CADASTRO_ALUNOS = 1;
     private static final int OPCAO_REGISTRO_EXERCICIOS = 2;
     private static final int OPCAO_CONSULTAS = 3;
+    private static final int MENU_FICHAS = 4;
     private static final int OPCAO_SAIR = 5;
 
     private final AlunoController alunoController;
     private final ExercicioController exercicioController;
     private final ConsultaController consultaController;
+    private final FichaTreinoController fichaTreinoController;
+
 
     @Autowired
-    public ConsoleController(AlunoController alunoController, ExercicioController exercicioController, ConsultaController consultaController) {
+    public ConsoleController(AlunoController alunoController, ExercicioController exercicioController, ConsultaController consultaController, FichaTreinoController fichaTreinoController) {
         this.alunoController = alunoController;
         this.exercicioController = exercicioController;
         this.consultaController = consultaController;
+        this.fichaTreinoController = fichaTreinoController;
     }
 
     @Override
@@ -45,6 +49,9 @@ public class ConsoleController implements CommandLineRunner {
                     consultaController.menuConsultas(le);
                     break;
 
+                case MENU_FICHAS:
+                    fichaTreinoController.menuFichas(le);
+
                 case OPCAO_SAIR:
                     System.out.println("Saindo do sistema...");
                     break;
@@ -61,7 +68,7 @@ public class ConsoleController implements CommandLineRunner {
         System.out.println("┃ 1) Cadastro De Alunos     ┃");
         System.out.println("┃ 2) Registro De Exercícios ┃");
         System.out.println("┃ 3) Consultas              ┃");
-        System.out.println("┃ 4) Feedback Treinador     ┃");
+        System.out.println("┃ 4) Fichas de Treino       ┃");
         System.out.println("┃ 5) Sair                   ┃");
         System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
         System.out.print("Escolha Sua Opção:: ");

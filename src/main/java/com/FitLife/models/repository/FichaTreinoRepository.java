@@ -13,6 +13,8 @@ public interface FichaTreinoRepository extends MongoRepository<FichaTreino, Stri
     Optional<FichaTreino> findById(String id);
     List<FichaTreino> findAll();
     void deleteById(String id);
-
-
+    List<FichaTreino> findByAlunoId(String id);
 }
+
+
+
