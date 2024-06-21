@@ -13,10 +13,9 @@ import java.util.Scanner;
 @Controller
 public class FichaTreinoController {
     private static final int CRIAR_FICHA = 1;
-    private static final int MODIFICAR_FICHA = 2;
-    private static final int DELETAR_FICHA = 3;
-    private static final int LISTAR_FICHAS = 4;
-    private static final int OPCAO_SAIR = 5;
+    private static final int DELETAR_FICHAS = 2;
+    private static final int LISTAR_FICHAS = 3;
+    private static final int OPCAO_SAIR = 4;
 
     private final FichaTreinoService fichaTreinoService;
 
@@ -39,10 +38,9 @@ public class FichaTreinoController {
             System.out.println("┃              MENU DE FICHAS                    ┃");
             System.out.println("┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫");
             System.out.println("┃ 1) Cadastrar Ficha                             ┃");
-            System.out.println("┃ 2) Editar Ficha                                ┃");
-            System.out.println("┃ 3) Deletar Ficha                               ┃");
-            System.out.println("┃ 4) Listar Fichas                               ┃");
-            System.out.println("┃ 5) Exibir aluno com maior tempo de exercícios  ┃");
+            System.out.println("┃ 2) Deletar Ficha                               ┃");
+            System.out.println("┃ 3) Listar Fichas                               ┃");
+            System.out.println("┃ 4) Exibir aluno com maior tempo de exercícios  ┃");
             System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
             System.out.print("Escolha uma opção: ");
             System.out.println();
@@ -63,6 +61,13 @@ public class FichaTreinoController {
                     System.out.println();
                     break;
 
+                case DELETAR_FICHAS:
+                        System.out.println("Você escolheu 'Deletar Fichas'");
+                        Thread.sleep(2000);
+                    listarEExcluirFichasPorAluno(le);
+                        System.out.println();
+                        break;
+
 
                 case OPCAO_SAIR:
                     System.out.println("Você escolheu 'Voltar'");
@@ -75,6 +80,10 @@ public class FichaTreinoController {
 
     private void criarFichasParaAlunos(Scanner le) {
         fichaTreinoService.criarFichasParaAlunos(le);
+    }
+
+    private void listarEExcluirFichasPorAluno(Scanner le) {
+        fichaTreinoService.listarEExcluirFichasPorAluno(le);
     }
 
 }

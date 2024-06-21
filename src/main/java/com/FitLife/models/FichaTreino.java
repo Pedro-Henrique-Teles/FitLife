@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 @Document(collection = "fichas")
@@ -15,7 +15,7 @@ public class FichaTreino {
     private List<Exercicios> exercicios;
     private List<String> diasDaSemana;
     private int repeticoes;
-    private Time tempoDeDescanso;
+    private Date tempoDeDescanso;  // Alterado para java.util.Date
     @DocumentReference
     private Aluno aluno;  // Referência ao aluno
 
@@ -43,11 +43,11 @@ public class FichaTreino {
         this.repeticoes = repeticoes;
     }
 
-    public Time getTempoDeDescanso() {
+    public Date getTempoDeDescanso() {
         return tempoDeDescanso;
     }
 
-    public void setTempoDeDescanso(Time tempoDeDescanso) {
+    public void setTempoDeDescanso(Date tempoDeDescanso) {
         this.tempoDeDescanso = tempoDeDescanso;
     }
 
@@ -59,7 +59,7 @@ public class FichaTreino {
         this.aluno = aluno;
     }
 
-    public FichaTreino(String id, List<Exercicios> exercicios, List<String> diasDaSemana, int repeticoes, Time tempoDeDescanso, Aluno aluno) {
+    public FichaTreino(String id, List<Exercicios> exercicios, List<String> diasDaSemana, int repeticoes, Date tempoDeDescanso, Aluno aluno) {
         this.id = id;
         this.exercicios = exercicios;
         this.diasDaSemana = diasDaSemana;

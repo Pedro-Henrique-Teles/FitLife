@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.util.*;
 
 @Service
@@ -123,6 +122,46 @@ public class FichaTreinoService {
 
         System.out.println("Fichas criadas e atribuídas com sucesso!");
     }
+
+    public void listarEExcluirFichasPorAluno(Scanner le) {
+        // Listar Alunos Numerados
+        List<Aluno> todosAlunos = alunoRepository.findAll();
+        if (todosAlunos.isEmpty()) {
+            System.out.println("Não há alunos cadastrados para excluir fichas.");
+            return;
+        }
+
+        Map<Integer, Aluno> alunoMap = new HashMap<>();
+        System.out.println("Lista de Alunos:");
+        for (int i = 0; i < todosAlunos.size(); i++) {
+            alunoMap.put(i + 1, todosAlunos.get(i));
+            System.out.println((i + 1) + ": " + todosAlunos.get(i).getNome());
+        }
+
+        // Selecionar Aluno
+        System.out.print("Digite o número do aluno para excluir as fichas de treino: ");
+        int alunoEscolha = le.nextInt();
+        if (!alunoMap.containsKey(alunoEscolha)) {
+            System.out.println("Número de aluno inválido.");
+            return;
+        }
+        Aluno aluno = alunoMap.get(alunoEscolha);
+
+        // Excluir Fichas de Treino do Aluno Escolhido
+        excluirFichasPorAlunoId(aluno.getId());
+    }
+
+    // Método para excluir todas as fichas de treino de um aluno pelo ID do aluno
+    private void excluirFichasPorAlunoId(String alunoId) {
+        // Buscar todas as fichas de treino do aluno pelo ID do aluno
+        List<FichaTreino> fichas = fichaTreinoRepository.findByAlunoId(alunoId);
+
+        // Excluir as fichas de treino encontradas
+        fichaTreinoRepository.deleteAll(fichas);
+
+        System.out.println("Fichas de treino do aluno " + alunoId + " excluídas com sucesso.");
+    }
+
 }
 
 
